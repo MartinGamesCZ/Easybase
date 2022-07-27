@@ -31,7 +31,7 @@
 .navbar .title {
     font-size: larger;
     background: #34495e;
-    padding: 20px;
+    padding: 17.5px;
 }
 
 .navbar .categories .category {
@@ -56,16 +56,60 @@
     overflow: auto;
 }
 
+.content .group-title {
+    padding: 10px 30px;
+    font-size: xx-large;
+    background: #2c3e50;
+    margin-top: 50px;
+}
+
+.content .group-title:first-child {
+    margin-top: 0;
+}
+
 .content .section {
     padding: 30px;
+}
+
+.content .divider {
+    margin: 10px;
+    width: calc(80vw - 40px);
+    height: 0;
     border-bottom: 1px solid #7f8c8d;
 }
 
+
 .content .section .title {
-    font-size: xx-large;
+    font-size: x-large;
     margin-bottom: 20px;
 }
 
 .content .section .paragraph {
     width: calc(80vw - 60px)
 }
+
+.content .section .code {
+    width: calc(80vw - 60px);
+    margin-top: 40px;
+}
+
+.content .section .code pre {
+    width: calc(80vw - 60px);
+    border-radius: 5px;
+}
+
+.content .section .code pre code {
+    width: calc(80vw - 60px);
+    margin: 0;
+    font-family: 'Montserrat';
+}
+
+.content .section td, .content .section th {
+    padding: 5px 10px;
+}
+
+table, th, td {
+    margin-top: 40px;
+    border: 1px solid #7f8c8d;
+    border-collapse: collapse;
+  }

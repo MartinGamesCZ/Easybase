@@ -1,41 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Easybase documentation</title>
-    <link rel="stylesheet" href="index.css">
-</head>
-<body class="row">
+    <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="./libraries/prism.css">
+    <script src="./libraries/prism.js"></script>
+  </head>
+  <body class="row">
     <div class="navbar column">
-        <div class="title">Easybase</div>
-        <div class="categories column">
-            <div class="category column">
-                <div class="name">Introduction</div>
-                <div class="links column">
-                    <div class="link"><a href="#what-is-easybase">What is Easybase</a></div>
-                    <div class="link"><a href="#installation">Installation</a></div>
-                </div>
+      <div class="title">Easybase</div>
+      <div class="categories column">
+        <div class="category column">
+          <div class="name">Introduction</div>
+          <div class="links column">
+            <div class="link">
+              <a href="#what-is-easybase">What is Easybase</a>
             </div>
-            <div class="category column">
-                <div class="name">Basics</div>
-                <div class="links column">
-                    <div class="link"><a href="#connecting-to-database">Connecting to database</a></div>
-                    <div class="link"><a href="#configuration">Configuration</a></div>
-                </div>
-            </div>
+            <div class="link"><a href="#installation">Installation</a></div>
+          </div>
         </div>
+        <div class="category column">
+          <div class="name">Basics</div>
+          <div class="links column">
+            <div class="link">
+              <a href="#connecting-to-database">Connecting to database</a>
+            </div>
+            <div class="link"><a href="#configuration">Configuration</a></div>
+          </div>
+        </div>
+        <div class="category column">
+          <div class="name">Functions</div>
+          <div class="links column">
+            <div class="link">
+              <a href="#functions.query">Query</a>
+            </div>
+            <div class="link"><a href="#configuration">Configuration</a></div>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="content">
-        <div class="section" id="what-is-easybase">
-            <div class="title">What is Easybase</div>
-            <div class="paragraph">Easybase is modern, node.js library built using typescript that makes using databases easy!</div>
+      <!-- INTRODUCTION -->
+      <div class="group-title">Introduction</div>
+      <div class="section" id="what-is-easybase">
+        <div class="title">What is Easybase</div>
+        <div class="paragraph">
+          Easybase is modern, node.js library built using typescript that makes
+          using databases easy!
         </div>
-        <div class="section" id="installation">
-            <div class="title">Installation</div>
-            <div class="paragraph">Easybase is modern node.js library built using typescript that makes using databases easy!</div>
+      </div>
+      <div class="divider"></div>
+      <div class="section" id="installation">
+        <div class="title">Installation</div>
+        <div class="paragraph">
+          Visit
+          <a href="https://github.com/MartinGamesCZ/Easybase"
+            >our GitHub repository</a
+          >, download code, unzip it and put it into your 'node_modules' folder.
         </div>
+      </div>
+
+      <!-- BASICS -->
+      <div class="group-title">Basics</div>
+      <div class="section" id="connecting-to-database">
+        <div class="title">Connecting to database</div>
+        <div class="paragraph">
+          To use this library, you need to use it's class "Easybase". Create new
+          Easybase instance with valid <a href="#configuration">config</a> as an
+          argument, save it into variable and you are ready to use it!
+        </div>
+        <div class="code">
+          <pre class="line-numbers"><code class="language-javascript">const database = new Easybase(config);</code></pre>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="section" id="configuration">
+        <div class="title">Configuration</div>
+        <div class="paragraph">
+          Configuration is very easy. Configuration is object.
+          <table>
+            <thead>
+                <tr>
+                    <th>Property</th>
+                    <th>Type</th>
+                    <th>Required</th>
+                    <th>Default value</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>host</td>
+                    <td>string</td>
+                    <td>yes</td>
+                    <td>-</td>
+                    <td>Hostname or IP of database</td>
+                </tr>
+                <tr>
+                    <td>port</td>
+                    <td>number</td>
+                    <td>no</td>
+                    <td>3306</td>
+                    <td>Port of database</td>
+                </tr>
+                <tr>
+                    <td>user</td>
+                    <td>string</td>
+                    <td>yes</td>
+                    <td>-</td>
+                    <td>User of database</td>
+                </tr>
+                <tr>
+                    <td>password</td>
+                    <td>string</td>
+                    <td>yes</td>
+                    <td>-</td>
+                    <td>User's password</td>
+                </tr>
+                <tr>
+                    <td>database</td>
+                    <td>string</td>
+                    <td>no</td>
+                    <td>same as user</td>
+                    <td>Database name</td>
+                </tr>
+                <tr>
+                    <td>type</td>
+                    <td><a href="#types.database">database</a></td>
+                    <td>no</td>
+                    <td>MySQL</td>
+                    <td>Type of database, see <a href="#types.database">supported databases</a></td>
+                </tr>
+                <tr>
+                    <td>charset</td>
+                    <td>string</td>
+                    <td>no</td>
+                    <td>utf8mb4</td>
+                </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
-</body>
+
+    <script src="./index.js"></script>
+  </body>
 </html>
