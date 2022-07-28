@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Easybase documentation</title>
     <link rel="stylesheet" href="index.css" />
-    <link rel="stylesheet" href="./libraries/prism.css">
+    <link rel="stylesheet" href="./libraries/prism.css" />
     <script src="./libraries/prism.js"></script>
   </head>
   <body class="row">
@@ -37,7 +37,34 @@
             <div class="link">
               <a href="#functions.query">Query</a>
             </div>
-            <div class="link"><a href="#configuration">Configuration</a></div>
+            <div class="link">
+              <a href="#functions.table.get">Table | Get</a>
+            </div>
+            <div class="link">
+              <a href="#functions.table.insert">Table | Insert</a>
+            </div>
+            <div class="link">
+              <a href="#functions.table.update">Table | Update</a>
+            </div>
+            <div class="link">
+              <a href="#functions.table.delete">Table | Delete</a>
+            </div>
+          </div>
+        </div>
+        <div class="category column">
+          <div class="name">Types</div>
+          <div class="links column">
+            <div class="link">
+              <a href="#types.databases">Databases</a>
+            </div>
+          </div>
+        </div>
+        <div class="category column">
+          <div class="name">Operators</div>
+          <div class="links column">
+            <div class="link">
+              <a href="#operators.LIKE">LIKE</a>
+            </div>
           </div>
         </div>
       </div>
@@ -73,7 +100,9 @@
           argument, save it into variable and you are ready to use it!
         </div>
         <div class="code">
-          <pre class="line-numbers"><code class="language-javascript">const database = new Easybase(config);</code></pre>
+          <pre
+            class="line-numbers"
+          ><code class="language-javascript">const db = new Easybase(config); //This will connect to our db according to config</code></pre>
         </div>
       </div>
       <div class="divider"></div>
@@ -83,65 +112,147 @@
           Configuration is very easy. Configuration is object.
           <table>
             <thead>
-                <tr>
-                    <th>Property</th>
-                    <th>Type</th>
-                    <th>Required</th>
-                    <th>Default value</th>
-                    <th>Description</th>
-                </tr>
+              <tr>
+                <th>Property</th>
+                <th>Type</th>
+                <th>Required</th>
+                <th>Default value</th>
+                <th>Description</th>
+              </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>host</td>
-                    <td>string</td>
-                    <td>yes</td>
-                    <td>-</td>
-                    <td>Hostname or IP of database</td>
-                </tr>
-                <tr>
-                    <td>port</td>
-                    <td>number</td>
-                    <td>no</td>
-                    <td>3306</td>
-                    <td>Port of database</td>
-                </tr>
-                <tr>
-                    <td>user</td>
-                    <td>string</td>
-                    <td>yes</td>
-                    <td>-</td>
-                    <td>User of database</td>
-                </tr>
-                <tr>
-                    <td>password</td>
-                    <td>string</td>
-                    <td>yes</td>
-                    <td>-</td>
-                    <td>User's password</td>
-                </tr>
-                <tr>
-                    <td>database</td>
-                    <td>string</td>
-                    <td>no</td>
-                    <td>same as user</td>
-                    <td>Database name</td>
-                </tr>
-                <tr>
-                    <td>type</td>
-                    <td><a href="#types.database">database</a></td>
-                    <td>no</td>
-                    <td>MySQL</td>
-                    <td>Type of database, see <a href="#types.database">supported databases</a></td>
-                </tr>
-                <tr>
-                    <td>charset</td>
-                    <td>string</td>
-                    <td>no</td>
-                    <td>utf8mb4</td>
-                </tr>
+              <tr>
+                <td>host</td>
+                <td>string</td>
+                <td>yes</td>
+                <td>-</td>
+                <td>Hostname or IP of database</td>
+              </tr>
+              <tr>
+                <td>port</td>
+                <td>number</td>
+                <td>no</td>
+                <td>3306</td>
+                <td>Port of database</td>
+              </tr>
+              <tr>
+                <td>user</td>
+                <td>string</td>
+                <td>yes</td>
+                <td>-</td>
+                <td>User of database</td>
+              </tr>
+              <tr>
+                <td>password</td>
+                <td>string</td>
+                <td>yes</td>
+                <td>-</td>
+                <td>User's password</td>
+              </tr>
+              <tr>
+                <td>database</td>
+                <td>string</td>
+                <td>no</td>
+                <td>same as user</td>
+                <td>Database name</td>
+              </tr>
+              <tr>
+                <td>type</td>
+                <td><a href="#types.database">database</a></td>
+                <td>no</td>
+                <td>MySQL</td>
+                <td>
+                  Type of database, see
+                  <a href="#types.database">supported databases</a>
+                </td>
+              </tr>
+              <tr>
+                <td>charset</td>
+                <td>string</td>
+                <td>no</td>
+                <td>utf8mb4</td>
+              </tr>
             </tbody>
           </table>
+          <div class="code">
+            <pre><code class="language-js line-numbers">const config = {
+  host: "mysql.example.com",
+  user: "me",
+  password: "secret",
+  database: "myCoolDB",
+  type: "MySQL"
+} //Create db configuration
+
+const db = new Easybase(config); //Connect to db according to config</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- FUNCTIONS -->
+      <div class="group-title">Functions</div>
+      <div class="section" id="functions.query">
+        <div class="title">Query</div>
+        <div class="paragraph">
+          Using this, you can execute SQL on your database. You can also give it
+          array as second argument as values for prepared statements. This will
+          return promise.
+        </div>
+        <div class="code">
+          <pre
+            class="line-numbers"
+          ><code class="language-javascript">db.query("SELECT * FROM mytable WHERE key='value'").then((data) => console.log(data)).catch((err) => console.error(err))
+//This will return all rows from 'mytable' where key=value</code></pre>
+        </div>
+        <div class="code">
+          <pre
+            class="line-numbers"
+          ><code class="language-javascript">db.query("SELECT * FROM mytable WHERE key=?", ["value"]).then(console.log).catch(console.error) //This will return all rows from 'mytable' where key=value</code></pre>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="section" id="functions.table.get">
+        <div class="title">Table | Get</div>
+        <div class="paragraph">
+          This function allows you to easily get data from your database. You
+          need to execute table function to get table and then, you can execute
+          get function and optionaly add
+          <a href="#other.conditions">conditions</a> as an argument.
+          <div class="code">
+            <pre><code class="language-javascript line-numbers">db.table("mytable").get({
+  id: 1
+}).then(console.log).catch(console.error) //This will get all values from 'mytable' where id is 1</code></pre>
+          </div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="section" id="functions.table.insert">
+        <div class="title">Table | Insert</div>
+        <div class="paragraph">
+          This function allows you to easily insert data into your database. You
+          need to execute table function to get table and then, you can execute
+          insert function with data as an argument
+          <div class="code">
+            <pre><code class="language-javascript line-numbers">db.table("mytable").insert({
+  id: 5,
+  name: "John Doe",
+  email: "john.doe@example.com"
+}).then(console.log).catch(console.error) //This will insert 'data' into 'mytable'</code></pre>
+          </div>
+        </div>
+      </div>
+      <div class="section" id="functions.table.update">
+        <div class="title">Table | Update</div>
+        <div class="paragraph">
+          This function allows you to easily update data in your database. You
+          need to execute table function to get table and then, you can execute
+          update function with data and conditions as an arguments
+          <div class="code">
+            <pre><code class="language-javascript line-numbers">db.table("mytable").insert({
+  id: 5,
+  name: "John Doe",
+  email: "john.doe@example.com"
+}).then(console.log).catch(console.error) //This will insert 'data' into 'mytable'</code></pre>
+          </div>
         </div>
       </div>
     </div>

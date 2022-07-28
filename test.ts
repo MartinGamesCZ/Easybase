@@ -8,8 +8,10 @@ var db = new Easybase({
     password: process.env.DB_PASS ?? ""
 })
 
-db.table("users").get({
-    phone: STARTS_WITH("+420")
-}).then(console.table)
+const conditions = {
+    id: 3
+}
+
+db.table("users").delete(conditions).then(console.log).catch(console.error)
 
 setInterval(() => {}, 1000);
